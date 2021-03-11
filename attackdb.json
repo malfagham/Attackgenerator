@@ -1,0 +1,68 @@
+[
+    {
+        "Name" : "nmap for searching open ports",
+        "Preconditions" : [
+            {"protocol": "ipv4"},
+            {"address": "EXIST"},
+            {"ports": "NOT_EXIST"}
+        ],
+        "Postconditions" : [
+            {"os": "UNKNOWN"},
+            {"ports": "UNKNOWN"}
+        ],
+        "Command" : ""
+    },
+    {
+        "Name" : "CVE-2016-3714 for RCE{unix}",
+        "Preconditions" : [
+            {"os": "linux"},
+            {"address": "EXIST"},
+            {"protocol": "EXIST"},
+            {"ports": "EXIST"},
+            {"shell": "NOT_EXIST"}
+        ],
+        "Postconditions" : [
+            {"shell": "TEMPORAL"}
+        ],
+        "Command" : ""
+    },
+    {
+        "Name" : "System Investigation{unix}",
+        "Preconditions" : [
+            {"os": "linux"},
+            {"shell": "EXIST"},
+            {"binaries": "NOT_EXIST"},
+            {"privilege": "NOT_EXIST"}
+        ],
+        "Postconditions" : [
+            {"binaries": "UNKNOWN"},
+            {"privilege": "UNKNOWN"},
+            {"cwd": "UNKNOWN"}
+        ],
+        "Command" : ""
+    },
+    {
+        "Name" : "Download{wget}",
+        "Preconditions" : [
+            {"shell": "TEMPORAL"},
+            {"binaries": "INCLUDE wget"}
+        ],
+        "Postconditions" : [
+            { "shell": "DOWNLOADED" }
+        ],
+        "Command" : ""
+    },
+    {
+        "Name" : "Install{cron}",
+        "Preconditions" : [
+            {"shell": "DOWNLOADED"},
+            {"binaries": "INCLUDE cron"},
+            {"privilege": "0"},
+            {"cwd": "EXIST"}
+        ],
+        "Postconditions" : [
+            {"shell": "PERMANENT"}
+        ],
+        "Command" : ""
+    }
+]
